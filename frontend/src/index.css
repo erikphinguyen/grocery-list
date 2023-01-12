@@ -12,3 +12,21 @@ body {
     padding-right: 0;
     margin-bottom: 0;
 }
+
+.button {
+    /* background-color: #c9e4ca;
+    box-shadow: 0 5px 0 #87bba2; */
+    background-color: #a3b18a;
+    box-shadow: 0 5px 0 #588157;
+    text-align: center;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+    text-shadow: 2px 2px 2px black;
+}
+
+.button:active {
+    box-shadow: none;
+    transform: translateY(5px);
+}

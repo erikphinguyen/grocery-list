@@ -15,9 +15,9 @@ const Demo = () => {
         });
     };
     return (
-        <button className='button' onClick={demoLogin}>
+        <p onClick={demoLogin} style={{opacity: '0.85'}}>
             Demo User
-        </button>
+        </p>
     );
 };
 
