@@ -25,10 +25,10 @@ function Navigation({ isLoaded }) {
     return (
         <nav>
             <div className='navigation'>
-                <div>
+                <div className='nav-home'>
                     <NavLink exact to="/">Grocery List</NavLink>
                 </div>
-                <div>
+                <div className='nav-fx'>
                     {isLoaded && sessionLinks}
                 </div>
             </div>

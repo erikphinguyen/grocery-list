@@ -1,7 +1,18 @@
 .navigation {
     display: flex;
     justify-content: space-between;
-    left: 0;
-    margin-left: 19%;
-    margin-right: 19%;
+    width: 100%;
+}
+
+.navigation>div {
+    display: flex;
+}
+
+.nav-home {
+    margin-left: 20%;
+}
+
+.nav-fx {
+    margin-right: 20%;
+    gap: 1rem;
 }
