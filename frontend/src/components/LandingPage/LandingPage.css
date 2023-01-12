@@ -19,3 +19,13 @@
     color: white;
     text-shadow: 10px 10px 10px black;
 }
+
+.false-statement {
+    top: 0;
+    padding-top: 0;
+    margin-top: 0;
+    font-size: 2rem;
+    font-weight: 700;
+    color: white;
+    text-shadow: 3px 3px 3px black;
+}

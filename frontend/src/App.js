@@ -23,10 +23,10 @@ function App() {
       {isLoaded && (
         <Switch>
           <Route exact path="/">
-            <LandingPage />
+            <LandingPage user={user}/>
           </Route>
           <Route exact path="/users/:id/tasks">
-            <Tasks />
+            <Tasks user={user}/>
           </Route>
           {/* <Route path="/signup">
             <SignupFormPage />
