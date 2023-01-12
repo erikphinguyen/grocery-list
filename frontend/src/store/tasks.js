@@ -22,9 +22,9 @@ const putTasks = (task) => ({
     task
 });
 
-const deleteTasks = (taskId) => ({
+const deleteTasks = (id) => ({
     type: DELETE_TASKS,
-    taskId
+    id
 });
 
 // THUNKS
@@ -66,3 +66,44 @@ export const thunkPutTasks = (data) => async (dispatch) => {
         return updatedTask;
     }
 }
+
+export const thunkDeleteTasks = (id) => async (dispatch) => {
+    const response = await csrfFetch(`/api/tasks/${id}`, {
+        method: 'DELETE'
+    });
+    if (response.ok) {
+        dispatch(deleteTasks(id));
+        // return id;
+    }
+}
+
+// REDUCER
+const tasksReducer = (state = {}, action) => {
+    switch (action.type) {
+        case GET_TASKS:
+            const getState = {};
+            action.tasks.forEach(task => {
+                getState[task.id] = task;
+            });
+            return {
+                ...getState
+            }
+        case POST_TASKS:
+            const postState = { ...state };
+            postState[action.task] = action.task;
+            return postState;
+        case PUT_TASKS:
+            return {
+                ...state,
+                [action.task.id]: action.task
+            }
+        case DELETE_TASKS:
+            const deleteState = { ...state };
+            delete deleteState[action.id];
+            return deleteState;
+        default:
+            return state;
+    }
+}
+
+export default tasksReducer;
