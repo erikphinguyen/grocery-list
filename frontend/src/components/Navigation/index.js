@@ -17,6 +17,7 @@ function Navigation({ isLoaded }) {
     } else {
         sessionLinks = (
             <>
+                <Demo />
                 <LoginFormModal />
                 <NavLink to="/signup">Sign Up</NavLink>
             </>
@@ -27,10 +28,9 @@ function Navigation({ isLoaded }) {
         <nav>
             <div className='navigation'>
                 <div className='nav-home'>
-                    <NavLink exact to="/">Grocery List</NavLink>
+                    <NavLink exact to="/" style={{color: 'white'}}>Home</NavLink>
                 </div>
                 <div className='nav-fx'>
-                    <Demo />
                     {isLoaded && sessionLinks}
                 </div>
             </div>

@@ -2,7 +2,9 @@
     display: flex;
     justify-content: space-between;
     width: 100%;
-    border: 1px solid red;
+    position: absolute;
+    padding-top: 1%;
+
 }
 
 .navigation>div {
@@ -10,10 +12,14 @@
 }
 
 .nav-home {
+    color: white;
     margin-left: 20%;
+    cursor: pointer;
 }
 
 .nav-fx {
+    color: white;
     margin-right: 20%;
     gap: 1rem;
+    cursor: pointer;
 }
