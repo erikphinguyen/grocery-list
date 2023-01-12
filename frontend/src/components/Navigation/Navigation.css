@@ -1,0 +1,32 @@
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    position: absolute;
+    padding-top: 1%;
+}
+
+.navigation>div {
+    display: flex;
+}
+
+.nav-home {
+    color: white;
+    margin-left: 20%;
+    cursor: pointer;
+    align-self: center;
+}
+
+.nav-fx {
+    color: white;
+    margin-right: 20%;
+    gap: 1.5rem;
+    cursor: pointer;
+    align-self: center;
+}
+
+.session-container {
+    display: flex;
+    align-items: center;
+    text-shadow: 2px 2px 2px black;
+}

@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import LoginFormModal from '../LoginFormModal';
 import './Navigation.css';
+import Demo from '../Demo.js/Demo.js';
 
 function Navigation({ isLoaded }) {
     const sessionUser = useSelector(state => state.session.user);
@@ -11,24 +12,31 @@ function Navigation({ isLoaded }) {
     let sessionLinks;
     if (sessionUser) {
         sessionLinks = (
-            <ProfileButton user={sessionUser} />
+            <div className='session-container'>
+                <ProfileButton user={sessionUser} />
+            </div>
         );
     } else {
         sessionLinks = (
             <>
+                <Demo />
                 <LoginFormModal />
-                <NavLink to="/signup">Sign Up</NavLink>
+                <p style={{ color: 'white', textDecoration: 'none', opacity: '0.85' }}>Sign Up</p>
             </>
         );
     }
 
     return (
-        <ul>
-            <li>
-                <NavLink exact to="/">Home</NavLink>
-                {isLoaded && sessionLinks}
-            </li>
-        </ul>
+        <nav>
+            <div className='navigation'>
+                <div className='nav-home'>
+                    <NavLink exact to="/" style={{ color: 'white', textDecoration: 'none', opacity: '0.85' }}>Home</NavLink>
+                </div>
+                <div className='nav-fx'>
+                    {isLoaded && sessionLinks}
+                </div>
+            </div>
+        </nav>
     );
 }
 
