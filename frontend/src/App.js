@@ -5,6 +5,8 @@ import { Route, Switch } from "react-router-dom";
 import SignupFormPage from "./components/SignupFormPage";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
+import LandingPage from "./components/LandingPage/LandingPage.js";
+import Tasks from "./components/Tasks/Tasks.js";
 
 function App() {
   const dispatch = useDispatch();
@@ -22,7 +24,7 @@ function App() {
             <LandingPage />
           </Route>
           <Route exact path="/users/:id/tasks">
-            <TasksPage />
+            <Tasks />
           </Route>
           {/* <Route path="/signup">
             <SignupFormPage />
