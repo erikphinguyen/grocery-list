@@ -44,4 +44,15 @@ router.put('/:id(\\d+)', requireAuth, restoreUser, asyncHandler(async (req, res)
     return res.json(taskToEdit);
 }))
 
+// DELETE TASK
+router.delete('/:id(\\d+)', requireAuth, restoreUser, asyncHandler(async (req, res) => {
+    const { id } = req.params;
+
+    const taskToDelete = await Task.findByPk(id);
+
+    await taskToDelete.destroy();
+
+    return res.json(taskToDelete);
+}))
+
 module.exports = router;
