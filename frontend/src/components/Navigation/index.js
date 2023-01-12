@@ -12,14 +12,16 @@ function Navigation({ isLoaded }) {
     let sessionLinks;
     if (sessionUser) {
         sessionLinks = (
-            <ProfileButton user={sessionUser} style={{border: '5px solid blue'}}/>
+            <div className='session-container'>
+                <ProfileButton user={sessionUser} />
+            </div>
         );
     } else {
         sessionLinks = (
             <>
                 <Demo />
                 <LoginFormModal />
-                <p style={{color: 'white', textDecoration: 'none', opacity: '0.85'}}>Sign Up</p>
+                <p style={{ color: 'white', textDecoration: 'none', opacity: '0.85' }}>Sign Up</p>
             </>
         );
     }
@@ -28,7 +30,7 @@ function Navigation({ isLoaded }) {
         <nav>
             <div className='navigation'>
                 <div className='nav-home'>
-                    <NavLink exact to="/" style={{color: 'white', textDecoration: 'none', opacity: '0.85'}}>Home</NavLink>
+                    <NavLink exact to="/" style={{ color: 'white', textDecoration: 'none', opacity: '0.85' }}>Home</NavLink>
                 </div>
                 <div className='nav-fx'>
                     {isLoaded && sessionLinks}
