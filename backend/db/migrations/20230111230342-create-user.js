@@ -9,17 +9,17 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       username: {
-        type: Sequelize.STRING,
-        unique: true,
-        allowNull: false
+        type: Sequelize.STRING(30),
+        allowNull: false,
+        unique: true
       },
       email: {
-        type: Sequelize.STRING,
-        unique: true,
-        allowNull: false
+        type: Sequelize.STRING(256),
+        allowNull: false,
+        unique: true
       },
       hashedPassword: {
-        type: Sequelize.STRING,
+        type: Sequelize.STRING.BINARY,
         allowNull: false
       },
       createdAt: {
@@ -34,6 +34,7 @@ module.exports = {
       }
     });
   },
+
   down: (queryInterface, Sequelize) => {
     return queryInterface.dropTable('Users');
   }
