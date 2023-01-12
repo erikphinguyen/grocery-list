@@ -1,0 +1,7 @@
+.navigation {
+    display: flex;
+    justify-content: space-between;
+    left: 0;
+    margin-left: 19%;
+    margin-right: 19%;
+}
