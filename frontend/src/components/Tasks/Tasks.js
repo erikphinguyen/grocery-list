@@ -5,7 +5,7 @@ function Tasks() {
   return (
     <div className='tasks-container'>
       <div className='tasks-page'>
-        <h1>GROCERY LIST</h1>
+        <h1 style={{letterSpacing: '0.05rem'}}>GROCERY LIST</h1>
       </div>
     </div>
   )
