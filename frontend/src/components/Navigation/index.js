@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import LoginFormModal from '../LoginFormModal';
 import './Navigation.css';
+import Demo from '../Demo.js/Demo.js';
 
 function Navigation({ isLoaded }) {
     const sessionUser = useSelector(state => state.session.user);
@@ -29,6 +30,7 @@ function Navigation({ isLoaded }) {
                     <NavLink exact to="/">Grocery List</NavLink>
                 </div>
                 <div className='nav-fx'>
+                    <Demo />
                     {isLoaded && sessionLinks}
                 </div>
             </div>
