@@ -8,8 +8,14 @@ module.exports = {
         task: "100 watermelons",
         createdAt: new Date(),
         updatedAt: new Date()
-    }
-  ], {});
+      },
+      {
+        userId: "1",
+        task: "200 bananas",
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+    ], {});
   },
 
   down: (queryInterface, Sequelize) => {

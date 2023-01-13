@@ -14,8 +14,6 @@ body {
 }
 
 .button {
-    /* background-color: #c9e4ca;
-    box-shadow: 0 5px 0 #87bba2; */
     background-color: #a3b18a;
     box-shadow: 0 5px 0 #588157;
     text-align: center;
@@ -29,4 +27,26 @@ body {
 .button:active {
     box-shadow: none;
     transform: translateY(5px);
+}
+
+.hidden {
+    opacity: 0;
+}
+
+.form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 10px;
+}
+
+.input {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
 }

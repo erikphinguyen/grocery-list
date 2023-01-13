@@ -29,11 +29,11 @@ const deleteTasks = (id) => ({
 
 // THUNKS
 export const thunkGetTasks = (id) => async (dispatch) => {
-    console.log('AM I INSIDE THUNK GET TASKS?')
     const response = await csrfFetch(`/api/tasks/${id}`);
     if (response.ok) {
         const tasks = await response.json();
         dispatch(getTasks(tasks));
+        return tasks
     }
 }
 
@@ -53,6 +53,7 @@ export const thunkPostTasks = (data) => async (dispatch) => {
 }
 
 export const thunkPutTasks = (data) => async (dispatch) => {
+
     const response = await csrfFetch(`/api/tasks/${data.id}`, {
         method: 'PUT',
         headers: {
@@ -60,6 +61,7 @@ export const thunkPutTasks = (data) => async (dispatch) => {
         },
         body: JSON.stringify(data)
     });
+
     if (response.ok) {
         const updatedTask = await response.json();
         dispatch(putTasks(updatedTask));
@@ -68,12 +70,15 @@ export const thunkPutTasks = (data) => async (dispatch) => {
 }
 
 export const thunkDeleteTasks = (id) => async (dispatch) => {
+
     const response = await csrfFetch(`/api/tasks/${id}`, {
         method: 'DELETE'
     });
     if (response.ok) {
+
+        const { id } = await response.json();
         dispatch(deleteTasks(id));
-        // return id;
+        return id;
     }
 }
 
