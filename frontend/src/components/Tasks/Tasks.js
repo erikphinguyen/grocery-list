@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory } from "react-router-dom";
 import './Tasks.css';
@@ -78,6 +78,34 @@ function Tasks({ user }) {
       })
   }
 
+  // save reference for dragItem and dragOverItem
+  const dragItem = useRef();
+  const dragOverItem = useRef();
+
+  // handle drag sorting
+  const handleSort = () => {
+    let items = [...task];
+    let dragItemIndex = dragItem.current;
+    let dragOverItemIndex = dragOverItem.current;
+    items.splice(dragOverItemIndex, 0, items.splice(dragItemIndex, 1)[0]);
+    setTask(items);
+  }
+
+  // handle drag and drop
+  const onDragStart = (e, i) => {
+    console.log('drag start:', i);
+    // e.dataTransfer.setData('id', id);
+  }
+
+  const onDragEnter = (e, i) => {
+    console.log('drag enter:', i);
+  }
+
+  const onDragEnd = (e) => {
+
+  }
+
+
   return (
     <div className='tasks-container'>
       <div className='tasks-page'>
@@ -98,16 +126,22 @@ function Tasks({ user }) {
         <br></br>
         <div className='tasks-list'>
 
-          {task?.map((task) => {
+          {task?.map((task, i) => {
             return (
               task.userId === user.id &&
               <div key={task.id} value={task.id}>
                 <div
+                  draggable='true'
+                  onDragStart={(e) => dragItem.current = i}
+                  onDragEnter={(e) => dragOverItem.current = i}
+                  onDragEnd={handleSort}
+                  // onDragOver={(e) => e.preventDefault()}
                   className='tasks-mapped'
-                  style={(completed && selectedEdit === task.id)? { backgroundColor: 'green', color: 'white', textShadow: '2px 2px 2px black' } : { backgroundColor: 'white' }}
+                  style={(completed && selectedEdit === task.id) ? { backgroundColor: 'green', color: 'white', textShadow: '2px 2px 2px black' } : { backgroundColor: 'white' }}
                   onClick={() => {
                     setSelectedEdit(task.id)
-                    setCompleted(!completed) }}
+                    setCompleted(!completed)
+                  }}
                 >
                   <h3>
                     {task.task}
