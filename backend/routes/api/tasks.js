@@ -9,10 +9,16 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
     const { id } = req.params;
 
     const tasks = await Task.findAll({
-        where: {
-            userId: id
-        }
+        // include: {
+        //     model: User,
+        // }
+        // where: {
+        //     userId: Number(id)
+        // }
     });
+    console.log('WHAT IS ID', typeof(id))
+    console.log('WHAT IS TASKS TYPE', typeof(tasks))
+    console.log('WHAT IS TASKS', tasks)
 
     return res.json(tasks);
 }))

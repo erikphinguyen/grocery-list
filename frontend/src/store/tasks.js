@@ -29,11 +29,11 @@ const deleteTasks = (id) => ({
 
 // THUNKS
 export const thunkGetTasks = (id) => async (dispatch) => {
-    console.log('AM I INSIDE THUNK GET TASKS?')
     const response = await csrfFetch(`/api/tasks/${id}`);
     if (response.ok) {
         const tasks = await response.json();
         dispatch(getTasks(tasks));
+        return tasks
     }
 }
 

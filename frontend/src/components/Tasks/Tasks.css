@@ -1,6 +1,6 @@
 .tasks-container {
     display: flex;
-    background-image: url('https://wallpapercave.com/wp/wp3105346.jpg');
+    /* background-image: url('https://wallpapercave.com/wp/wp3105346.jpg'); */
     height: 100%;
 }
 
@@ -11,6 +11,7 @@
     align-items: center;
     width: 100%;
     height: 100vh;
+    border: 5px blue solid
 }
 
 .tasks-page>h1 {
@@ -20,4 +21,28 @@
     color: white;
     text-shadow: 10px 10px 10px black;
     margin: 0;
+}
+
+.tasks-input-container {
+    width: 50%;
+    display: flex;
+    align-self: center;
+    justify-content: center;
+}
+
+.tasks-input-container>input{
+    width: 100%;
+    height: 3rem;
+    font-size: 1.5rem;
+    border: 1px solid black;
+    border-radius: 5px;
+    padding: 0 1rem;
+}
+
+.tasks-list {
+    border: 1px solid red;
+    width: 50%;
+    display: flex;
+    align-self: center;
+    justify-content: center;
 }
