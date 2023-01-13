@@ -75,7 +75,7 @@ function Tasks({ user }) {
         <h1 style={{ letterSpacing: '0.05rem' }}>GROCERY LIST</h1>
         <div className='tasks-input-container'>
           <input
-            style={{ width: "100%" }}
+            style={{ width: "100%", border: 'none' }}
             type='text'
             placeholder='Add an item here...'
           />
@@ -89,9 +89,9 @@ function Tasks({ user }) {
 
               <div key={task.id}>
                 <div className='tasks-mapped'>
-                  <h1>{task.task}</h1>
+                  <h3>{task.task}</h3>
                 </div>
-                  <br></br>
+                <br></br>
               </div>
             )
           })}
