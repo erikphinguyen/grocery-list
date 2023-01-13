@@ -34,12 +34,17 @@ router.post('/', requireAuth, restoreUser, asyncHandler(async (req, res) => {
 
 // EDIT TASK
 router.put('/:id(\\d+)', requireAuth, restoreUser, asyncHandler(async (req, res) => {
+    console.log('AM I HITTING THIS ROUTE?')
     const { id } = req.params;
-    const { task } = req.body;
-
+    // const { task } = req.body;
+    console.log('WHAT IS ID', id)
+    // console.log('WHAT IS TASK', task)
+    console.log('WHAT IS REQ.BODY', req.body)
     const taskToEdit = await Task.findByPk(id);
+    console.log('WHAT IS TASK TO EDIT', taskToEdit)
+    taskToEdit.task = req.body.task;
 
-    taskToEdit.task = task;
+    // taskToEdit.task = task;
 
     await taskToEdit.save();
 
@@ -49,9 +54,8 @@ router.put('/:id(\\d+)', requireAuth, restoreUser, asyncHandler(async (req, res)
 // DELETE TASK
 router.delete('/:id(\\d+)', requireAuth, restoreUser, asyncHandler(async (req, res) => {
     const { id } = req.params;
-    console.log('----------------- WHAT IS ID', id)
+
     const taskToDelete = await Task.findByPk(id);
-    console.log('----------------- WHAT IS TASKTODELETE', taskToDelete)
 
     await taskToDelete.destroy();
 

@@ -14,16 +14,23 @@ function Tasks({ user }) {
   // get tasks from store
   const [task, setTask] = useState([]);
 
-  // post,put task to store
+  // post task to store
   const [useTask, setUseTask] = useState('');
 
+  // put task
   const [editMode, setEditMode] = useState(false);
+  const [selectedEdit, setSelectedEdit] = useState(null);
+  const [editTask, setEditTask] = useState({
+    userId: task.userId,
+    task: task.task,
+  });
+
 
   const [errors, setErrors] = useState([]);
 
   // GET TASKS
   useEffect(() => {
-    dispatch(thunkGetTasks(user.id)) // user.id is a number while id is a string, why is that okay?
+    dispatch(thunkGetTasks(id)) // user.id is a number while id is a string, why is that okay?
       .then(res => {
         // console.log('WHAT IS RES', res)
         // let sortedTasks = res.sort((a, b) => a.id - b.id)
@@ -46,6 +53,7 @@ function Tasks({ user }) {
         console.log('NEWTASK POST: WHAT IS RES', res)
         setUseTask([...task, res])
         setUseTask('')
+        setTask([...task, res])
       })
   }
 
@@ -53,25 +61,27 @@ function Tasks({ user }) {
   const handleEditTask = e => {
     e.preventDefault();
 
-    const editTask = {
-      userId: user.id,
-      task: useTask,
+    let data = {
+      id: selectedEdit,
+      ...editTask,
     }
-
-    dispatch(thunkPutTasks(editTask))
+    console.log('AM I IN HANDLE EDIT TASK?')
+    dispatch(thunkPutTasks(data))
       .then(res => {
-        console.log('EDITTASK PUT: WHAT IS RES', res)
-        setUseTask([...task, res])
-        setUseTask('')
+        console.log('EDIT TASK PUT: WHAT IS RES', res)
+        dispatch(thunkGetTasks(id))
+          .then(res => {
+            setTask(res)
+            setEditMode(false)
+          })
       })
   }
 
-  console.log('WHAT IS ID OUTSIDE', id)
   // DELETE TASK
   const handleDeleteTask = (id) => {
     console.log('WHAT IS ID', id)
     dispatch(thunkDeleteTasks(id))
-      .then(()=> {
+      .then(() => {
         let deleteTask = task.filter(task => task.id !== id)
         console.log('WHAT IS DELETE TASK', deleteTask)
         setTask(deleteTask)
@@ -97,16 +107,39 @@ function Tasks({ user }) {
         <br></br>
         <br></br>
         <div className='tasks-list'>
+          {console.log('WAHT IS TASK IN JSX', task)}
           {task?.map((task) => {
             return (
-              <div key={task.id}>
+              <div key={task.id} value={task.id}>
                 <div className='tasks-mapped'>
                   <h3>{task.task}</h3>
                 </div>
-                <button className='button' onClick={handleEditTask}>Edit</button>
+                <button className='button' onClick={() => {
+                  setSelectedEdit(task.id)
+                  setEditMode(true)
+                }}>
+                  Edit
+                </button>
                 <button className='button' onClick={() => handleDeleteTask(task.id)}>Delete</button>
                 <br></br>
                 <br></br>
+                {
+                  (editMode && selectedEdit === task.id) && (
+                    <>
+                      <div >
+                        <input
+                          type='text'
+                          placeholder='Edit task here...'
+                          value={editTask.task}
+                          name='task'
+                          onChange={(e) => setEditTask({ ...editTask, task: e.target.value })}
+                        />
+                        <button className='button' onClick={handleEditTask}>Save</button>
+                      </div>
+                      <br></br>
+                    </>
+                  )
+                }
               </div>
             )
           })}

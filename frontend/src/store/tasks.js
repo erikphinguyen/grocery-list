@@ -53,6 +53,7 @@ export const thunkPostTasks = (data) => async (dispatch) => {
 }
 
 export const thunkPutTasks = (data) => async (dispatch) => {
+    console.log('--------THUNK: WHAT IS DATA', typeof(data))
     const response = await csrfFetch(`/api/tasks/${data.id}`, {
         method: 'PUT',
         headers: {
@@ -60,6 +61,7 @@ export const thunkPutTasks = (data) => async (dispatch) => {
         },
         body: JSON.stringify(data)
     });
+    console.log('--------THUNK: WHAT IS RESPONSE', response)
     if (response.ok) {
         const updatedTask = await response.json();
         dispatch(putTasks(updatedTask));
@@ -72,8 +74,8 @@ export const thunkDeleteTasks = (id) => async (dispatch) => {
     const response = await csrfFetch(`/api/tasks/${id}`, {
         method: 'DELETE'
     });
-    console.log('--------THUNK: WHAT IS RESPONSE', response)
     if (response.ok) {
+        console.log('--------THUNK: WHAT IS RESPONSE', response)
         const { id } = await response.json();
         dispatch(deleteTasks(id));
         return id;
