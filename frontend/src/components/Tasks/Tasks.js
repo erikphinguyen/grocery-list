@@ -13,6 +13,7 @@ function Tasks({ user }) {
 
   // get tasks from store
   const [task, setTask] = useState([]);
+  const [completed, setCompleted] = useState(false);
 
   // post task to store
   const [useTask, setUseTask] = useState('');
@@ -44,7 +45,6 @@ function Tasks({ user }) {
 
     dispatch(thunkPostTasks(newTask))
       .then(res => {
-
         setUseTask([...task, res])
         setUseTask('')
         setTask([...task, res])
@@ -101,8 +101,16 @@ function Tasks({ user }) {
           {task?.map((task) => {
             return (
               <div key={task.id} value={task.id}>
-                <div className='tasks-mapped'>
-                  <h3>{task.task}</h3>
+                <div
+                  className='tasks-mapped'
+                  style={(completed && selectedEdit === task.id)? { backgroundColor: 'green', color: 'white', textShadow: '2px 2px 2px black' } : { backgroundColor: 'white' }}
+                  onClick={() => {
+                    setSelectedEdit(task.id)
+                    setCompleted(!completed) }}
+                >
+                  <h3>
+                    {task.task}
+                  </h3>
                 </div>
                 <button className='button' onClick={() => {
                   setSelectedEdit(task.id)
