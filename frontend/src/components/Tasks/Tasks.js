@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory } from "react-router-dom";
 import './Tasks.css';
-import { thunkGetTasks, thunkPostTasks, thunkPutTasks, thunkDeleteTasks } from '../../store/tasks';
+import tasksReducer, { thunkGetTasks, thunkPostTasks, thunkPutTasks, thunkDeleteTasks } from '../../store/tasks';
 
 function Tasks({ user }) {
 
@@ -41,10 +41,11 @@ function Tasks({ user }) {
     }
 
     dispatch(thunkPostTasks(newTask))
-      .then(res =>
-        console.log('what is res POST TASKS', res)
-        // setAddTask([...addTask, res])
-      )
+      .then(res => {
+        console.log('NEWTASK POST: WHAT IS RES', res)
+        setAddTask([...task, res])
+        setAddTask('')
+      })
   }
 
   // PUT TASK
@@ -78,7 +79,11 @@ function Tasks({ user }) {
             style={{ width: "100%", border: 'none' }}
             type='text'
             placeholder='Add an item here...'
+            value={addTask}
+            name='task'
+            onChange={(e) => setAddTask(e.target.value)}
           />
+          <button className='button' onClick={handleNewTask} type='submit'>Submit</button>
         </div>
         <br></br>
         <br></br>
