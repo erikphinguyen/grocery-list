@@ -53,7 +53,7 @@ export const thunkPostTasks = (data) => async (dispatch) => {
 }
 
 export const thunkPutTasks = (data) => async (dispatch) => {
-    console.log('--------THUNK: WHAT IS DATA', typeof(data))
+
     const response = await csrfFetch(`/api/tasks/${data.id}`, {
         method: 'PUT',
         headers: {
@@ -61,7 +61,7 @@ export const thunkPutTasks = (data) => async (dispatch) => {
         },
         body: JSON.stringify(data)
     });
-    console.log('--------THUNK: WHAT IS RESPONSE', response)
+
     if (response.ok) {
         const updatedTask = await response.json();
         dispatch(putTasks(updatedTask));
@@ -70,12 +70,12 @@ export const thunkPutTasks = (data) => async (dispatch) => {
 }
 
 export const thunkDeleteTasks = (id) => async (dispatch) => {
-    console.log('--------THUNK: WHAT IS ID', id)
+
     const response = await csrfFetch(`/api/tasks/${id}`, {
         method: 'DELETE'
     });
     if (response.ok) {
-        console.log('--------THUNK: WHAT IS RESPONSE', response)
+
         const { id } = await response.json();
         dispatch(deleteTasks(id));
         return id;
@@ -103,7 +103,6 @@ const tasksReducer = (state = {}, action) => {
                 [action.task.id]: action.task
             }
         case DELETE_TASKS:
-            console.log('INSIDE DELETE REDUCER')
             const deleteState = { ...state };
             delete deleteState[action.id];
             return deleteState;

@@ -25,16 +25,10 @@ function Tasks({ user }) {
     task: task.task,
   });
 
-
-  const [errors, setErrors] = useState([]);
-
   // GET TASKS
   useEffect(() => {
-    dispatch(thunkGetTasks(id)) // user.id is a number while id is a string, why is that okay?
+    dispatch(thunkGetTasks(id))
       .then(res => {
-        // console.log('WHAT IS RES', res)
-        // let sortedTasks = res.sort((a, b) => a.id - b.id)
-        // console.log('WHAT IS SORTED', sortedTasks)
         setTask(res)
       })
   }, [dispatch])
@@ -50,7 +44,7 @@ function Tasks({ user }) {
 
     dispatch(thunkPostTasks(newTask))
       .then(res => {
-        console.log('NEWTASK POST: WHAT IS RES', res)
+
         setUseTask([...task, res])
         setUseTask('')
         setTask([...task, res])
@@ -65,10 +59,8 @@ function Tasks({ user }) {
       id: selectedEdit,
       ...editTask,
     }
-    console.log('AM I IN HANDLE EDIT TASK?')
     dispatch(thunkPutTasks(data))
       .then(res => {
-        console.log('EDIT TASK PUT: WHAT IS RES', res)
         dispatch(thunkGetTasks(id))
           .then(res => {
             setTask(res)
@@ -79,11 +71,9 @@ function Tasks({ user }) {
 
   // DELETE TASK
   const handleDeleteTask = (id) => {
-    console.log('WHAT IS ID', id)
     dispatch(thunkDeleteTasks(id))
       .then(() => {
         let deleteTask = task.filter(task => task.id !== id)
-        console.log('WHAT IS DELETE TASK', deleteTask)
         setTask(deleteTask)
       })
   }
@@ -107,7 +97,7 @@ function Tasks({ user }) {
         <br></br>
         <br></br>
         <div className='tasks-list'>
-          {console.log('WAHT IS TASK IN JSX', task)}
+
           {task?.map((task) => {
             return (
               <div key={task.id} value={task.id}>

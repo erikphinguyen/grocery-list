@@ -34,17 +34,11 @@ router.post('/', requireAuth, restoreUser, asyncHandler(async (req, res) => {
 
 // EDIT TASK
 router.put('/:id(\\d+)', requireAuth, restoreUser, asyncHandler(async (req, res) => {
-    console.log('AM I HITTING THIS ROUTE?')
     const { id } = req.params;
-    // const { task } = req.body;
-    console.log('WHAT IS ID', id)
-    // console.log('WHAT IS TASK', task)
-    console.log('WHAT IS REQ.BODY', req.body)
-    const taskToEdit = await Task.findByPk(id);
-    console.log('WHAT IS TASK TO EDIT', taskToEdit)
-    taskToEdit.task = req.body.task;
 
-    // taskToEdit.task = task;
+    const taskToEdit = await Task.findByPk(id);
+
+    taskToEdit.task = req.body.task;
 
     await taskToEdit.save();
 
