@@ -16,10 +16,6 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
         //     userId: Number(id)
         // }
     });
-    console.log('WHAT IS ID', typeof(id))
-    console.log('WHAT IS TASKS TYPE', typeof(tasks))
-    console.log('WHAT IS TASKS', tasks)
-
     return res.json(tasks);
 }))
 
@@ -53,12 +49,17 @@ router.put('/:id(\\d+)', requireAuth, restoreUser, asyncHandler(async (req, res)
 // DELETE TASK
 router.delete('/:id(\\d+)', requireAuth, restoreUser, asyncHandler(async (req, res) => {
     const { id } = req.params;
-
+    console.log('----------------- WHAT IS ID', id)
     const taskToDelete = await Task.findByPk(id);
+    console.log('----------------- WHAT IS TASKTODELETE', taskToDelete)
 
     await taskToDelete.destroy();
 
-    return res.json(taskToDelete);
+
+    //return res.json(taskToDelete);
+    res.json({
+        message: 'Task deleted'
+    })
 }))
 
 module.exports = router;

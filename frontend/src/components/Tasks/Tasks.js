@@ -14,9 +14,10 @@ function Tasks({ user }) {
   // get tasks from store
   const [task, setTask] = useState([]);
 
-  // post task to store
-  const [addTask, setAddTask] = useState('');
+  // post,put task to store
+  const [useTask, setUseTask] = useState('');
 
+  const [editMode, setEditMode] = useState(false);
 
   const [errors, setErrors] = useState([]);
 
@@ -37,38 +38,45 @@ function Tasks({ user }) {
 
     const newTask = {
       userId: user.id,
-      task: addTask,
+      task: useTask,
     }
 
     dispatch(thunkPostTasks(newTask))
       .then(res => {
         console.log('NEWTASK POST: WHAT IS RES', res)
-        setAddTask([...task, res])
-        setAddTask('')
+        setUseTask([...task, res])
+        setUseTask('')
       })
   }
 
   // PUT TASK
+  const handleEditTask = e => {
+    e.preventDefault();
 
+    const editTask = {
+      userId: user.id,
+      task: useTask,
+    }
 
-  {/* {task.map((task) => {
-            return (
-              <div className='tasks-list-item'>
-                <div className='tasks-list-item-text'>
-                  <p>{task.task}</p>
-                </div>
-                <div className='tasks-list-item-buttons'>
-                  <button className='tasks-list-item-button'>
-                    <i className="fas fa-check"></i>
-                  </button>
-                  <button className='tasks-list-item-button'>
-                    <i className="fas fa-times"></i>
-                  </button>
-                </div>
-              </div>
-            )
-          }
-          )} */}
+    dispatch(thunkPutTasks(editTask))
+      .then(res => {
+        console.log('EDITTASK PUT: WHAT IS RES', res)
+        setUseTask([...task, res])
+        setUseTask('')
+      })
+  }
+
+  console.log('WHAT IS ID OUTSIDE', id)
+  // DELETE TASK
+  const handleDeleteTask = (id) => {
+    console.log('WHAT IS ID', id)
+    dispatch(thunkDeleteTasks(id))
+      .then(()=> {
+        let deleteTask = task.filter(task => task.id !== id)
+        console.log('WHAT IS DELETE TASK', deleteTask)
+        setTask(deleteTask)
+      })
+  }
 
   return (
     <div className='tasks-container'>
@@ -79,9 +87,9 @@ function Tasks({ user }) {
             style={{ width: "100%", border: 'none' }}
             type='text'
             placeholder='Add an item here...'
-            value={addTask}
+            value={useTask}
             name='task'
-            onChange={(e) => setAddTask(e.target.value)}
+            onChange={(e) => setUseTask(e.target.value)}
           />
           <button className='button' onClick={handleNewTask} type='submit'>Submit</button>
         </div>
@@ -89,13 +97,15 @@ function Tasks({ user }) {
         <br></br>
         <br></br>
         <div className='tasks-list'>
-          {task.map((task) => {
+          {task?.map((task) => {
             return (
-
               <div key={task.id}>
                 <div className='tasks-mapped'>
                   <h3>{task.task}</h3>
                 </div>
+                <button className='button' onClick={handleEditTask}>Edit</button>
+                <button className='button' onClick={() => handleDeleteTask(task.id)}>Delete</button>
+                <br></br>
                 <br></br>
               </div>
             )
