@@ -6,7 +6,7 @@ import { thunkGetTasks, thunkPostTasks, thunkPutTasks, thunkDeleteTasks } from '
 
 function Tasks({ user }) {
 
-  const {id} = useParams();
+  const { id } = useParams();
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -24,7 +24,10 @@ function Tasks({ user }) {
   useEffect(() => {
     dispatch(thunkGetTasks(user.id)) // user.id is a number while id is a string, why is that okay?
       .then(res => {
-        console.log('what is res GET TASKS', res)
+        // console.log('WHAT IS RES', res)
+        // let sortedTasks = res.sort((a, b) => a.id - b.id)
+        // console.log('WHAT IS SORTED', sortedTasks)
+        setTask(res)
       })
   }, [dispatch])
 
@@ -47,6 +50,24 @@ function Tasks({ user }) {
   // PUT TASK
 
 
+  {/* {task.map((task) => {
+            return (
+              <div className='tasks-list-item'>
+                <div className='tasks-list-item-text'>
+                  <p>{task.task}</p>
+                </div>
+                <div className='tasks-list-item-buttons'>
+                  <button className='tasks-list-item-button'>
+                    <i className="fas fa-check"></i>
+                  </button>
+                  <button className='tasks-list-item-button'>
+                    <i className="fas fa-times"></i>
+                  </button>
+                </div>
+              </div>
+            )
+          }
+          )} */}
 
   return (
     <div className='tasks-container'>
@@ -56,16 +77,28 @@ function Tasks({ user }) {
           <input
             style={{ width: "100%" }}
             type='text'
-            placeholder='Add an item'
+            placeholder='Add an item here...'
           />
         </div>
         <br></br>
+        <br></br>
+        <br></br>
         <div className='tasks-list'>
-          <h3>World</h3>
+          {task.map((task) => {
+            return (
+
+              <div key={task.id}>
+                <div className='tasks-mapped'>
+                  <h1>{task.task}</h1>
+                </div>
+                  <br></br>
+              </div>
+            )
+          })}
         </div>
       </div>
     </div>
   )
 }
 
-export default Tasks
+export default Tasks;
