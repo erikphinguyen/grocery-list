@@ -13,10 +13,6 @@ const validateSignup = [
         .isEmail()
         .withMessage('Please provide a valid email.'),
     check('email')
-        .not()
-        .isEmail()
-        .withMessage('Email cannot be an email.'),
-    check('email')
         .isLength({ min: 0 })
         .withMessage('Email must not be empty.'),
     check('email')

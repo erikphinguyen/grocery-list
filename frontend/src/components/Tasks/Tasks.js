@@ -100,6 +100,7 @@ function Tasks({ user }) {
 
           {task?.map((task) => {
             return (
+              task.userId === user.id &&
               <div key={task.id} value={task.id}>
                 <div
                   className='tasks-mapped'
