@@ -11,6 +11,8 @@ function Tasks({ user }) {
   const dispatch = useDispatch();
   const history = useHistory();
 
+  const [finishedTasks, setFinishedTasks] = useState([]);
+
   // get tasks from store
   const [task, setTask] = useState([]);
   const [completed, setCompleted] = useState(false);
@@ -137,10 +139,28 @@ function Tasks({ user }) {
                   onDragEnd={handleSort}
                   // onDragOver={(e) => e.preventDefault()}
                   className='tasks-mapped'
-                  style={(completed && selectedEdit === task.id) ? { backgroundColor: 'green', color: 'white', textShadow: '2px 2px 2px black' } : { backgroundColor: 'white' }}
+                  style={(completed) ? { backgroundColor: 'green', color: 'white', textShadow: '2px 2px 2px black' } : { backgroundColor: 'white' }}
+                  // style={(completed && finishedTasks === task.id) ? { backgroundColor: 'green', color: 'white', textShadow: '2px 2px 2px black' } : { backgroundColor: 'white' }}
                   onClick={() => {
-                    setSelectedEdit(task.id)
-                    setCompleted(!completed)
+                    // do I need to have a completed column in backend?
+
+                    
+                    if (!finishedTasks.includes(task.id)) { // if task is not in finishedTasks array, add it
+                      finishedTasks.push(task.id) // add task to finishedTasks array
+                      console.log('FIRST IF: WHAT IS FINISHED TASKS', finishedTasks)
+                      setFinishedTasks(finishedTasks) // update finishedTasks array
+                      setCompleted(!completed)
+                    }
+                    if (finishedTasks.includes(task.id)) {  // if task is already in finishedTasks array, remove it
+                      let index = finishedTasks.indexOf(task.id) // find index of task in finishedTasks array
+                      finishedTasks.splice(index, 1) // remove task from finishedTasks array
+                      console.log('SECOND IF: WHAT IS FINISHED TASKS', finishedTasks)
+                      setFinishedTasks(finishedTasks) // update finishedTasks array
+                      setCompleted(!completed)
+                    }
+
+                    console.log('WHAT IS FINISHED TASKS', finishedTasks)
+
                   }}
                 >
                   <h3>
