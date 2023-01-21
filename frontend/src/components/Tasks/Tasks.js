@@ -128,7 +128,7 @@ function Tasks({ user }) {
 
           {task?.map((task, i) => {
             return (
-              task.userId === user.id &&
+              task?.userId === user?.id &&
               <div key={task.id} value={task.id}>
                 <div
                   draggable='true'

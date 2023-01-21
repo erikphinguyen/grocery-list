@@ -41,8 +41,8 @@ function ProfileButton({ user }) {
                         <div><b>Username:</b> {user.username}</div>
                         <div><b>Email:</b> {user.email}</div>
                     </div>
-                    <NavLink exact to={`/`}>
-                        <button className="button" onClick={logout}>Log Out</button>
+                    <NavLink exact to="/">
+                        <button className="button" onClick={logout}>{console.log('AM I LOGGINg out')}Log Out</button>
                     </NavLink>
                 </>
             )}
