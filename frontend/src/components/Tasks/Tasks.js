@@ -139,35 +139,24 @@ function Tasks({ user }) {
                   onDragEnd={handleSort}
                   // onDragOver={(e) => e.preventDefault()}
                   className='tasks-mapped'
-                  // style={(completed && finishedTasks === task.id) ? { backgroundColor: 'green', color: 'white', textShadow: '2px 2px 2px black' } : { backgroundColor: 'white' }}
                   onClick={() => {
                     // do I need to have a completed column in backend?
 
 
                     if (!finishedTasks.includes(task.id)) { // if task is not in finishedTasks array, add it
-                      console.log('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
-                      console.log('WHAT IS TASK ID', task.id)
                       finishedTasks.push(task.id) // add task to finishedTasks array
                       setFinishedTasks(finishedTasks) // update finishedTasks array
-                      console.log('FIRST IF: WHAT IS FINISHED TASKS', finishedTasks)
                       setCompleted(!completed)
-                      console.log('-----------------------------------------------')
                     }
-
                     else {
                       let index = finishedTasks.indexOf(task.id) // find index of task in finishedTasks array
-                      console.log('WHAT IS INDEX', index)
-                      console.log('SECOND IF: WHAT IS FINISHED TASKS BEFORE SPLICE', finishedTasks)
                       finishedTasks.splice(index, 1) // remove task from finishedTasks array
-                      console.log('WHAT IS FINISHED TASKS', finishedTasks)
                       setCompleted(!completed)
                       setFinishedTasks(finishedTasks) // update finishedTasks array
                     }
 
-                    console.log('AFTER IF STATEMENTS FINISHED TASKS', finishedTasks)
-
                   }}
-                  style={(completed && finishedTasks.includes(task?.id)) ? { backgroundColor: 'green', color: 'white', textShadow: '2px 2px 2px black' } : { backgroundColor: 'white' }}
+                  style={(finishedTasks.includes(task?.id)) ? { backgroundColor: 'green', color: 'white', textShadow: '2px 2px 2px black' } : { backgroundColor: 'white' }}
                 >
                   <h3>
                     {task.task}
