@@ -144,7 +144,7 @@ function Tasks({ user }) {
                   onClick={() => {
                     // do I need to have a completed column in backend?
 
-                    
+
                     if (!finishedTasks.includes(task.id)) { // if task is not in finishedTasks array, add it
                       finishedTasks.push(task.id) // add task to finishedTasks array
                       console.log('FIRST IF: WHAT IS FINISHED TASKS', finishedTasks)
@@ -155,8 +155,8 @@ function Tasks({ user }) {
                       let index = finishedTasks.indexOf(task.id) // find index of task in finishedTasks array
                       finishedTasks.splice(index, 1) // remove task from finishedTasks array
                       console.log('SECOND IF: WHAT IS FINISHED TASKS', finishedTasks)
-                      setFinishedTasks(finishedTasks) // update finishedTasks array
                       setCompleted(!completed)
+                      setFinishedTasks(finishedTasks) // update finishedTasks array
                     }
 
                     console.log('WHAT IS FINISHED TASKS', finishedTasks)
