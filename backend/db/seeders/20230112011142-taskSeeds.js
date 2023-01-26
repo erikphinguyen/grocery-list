@@ -6,12 +6,14 @@ module.exports = {
       {
         userId: "1",
         task: "100 watermelons",
+        completed: false,
         createdAt: new Date(),
         updatedAt: new Date()
       },
       {
         userId: "1",
         task: "200 bananas",
+        completed: false,
         createdAt: new Date(),
         updatedAt: new Date()
       },
