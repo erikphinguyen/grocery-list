@@ -19,6 +19,7 @@ router.get('/:id(\\d+)', asyncHandler(async (req, res) => {
     return res.json(tasks);
 }))
 
+
 // POST TASK
 router.post('/', requireAuth, restoreUser, asyncHandler(async (req, res) => {
     const { userId, task } = req.body;
@@ -58,6 +59,19 @@ router.delete('/:id(\\d+)', requireAuth, restoreUser, asyncHandler(async (req, r
     res.json({
         message: 'Task deleted'
     })
+}))
+
+// COMPLETED TASK
+router.put('/:id(\\d+)', requireAuth, restoreUser, asyncHandler(async (req, res) => {
+    const { id } = req.params;
+
+    const taskCompleted = await Task.findByPk(id);
+
+    taskCompleted.completed = true;
+
+    await taskCompleted.save();
+
+    return res.json(taskCompleted);
 }))
 
 module.exports = router;
