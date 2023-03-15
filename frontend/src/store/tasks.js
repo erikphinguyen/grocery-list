@@ -5,6 +5,7 @@ const GET_TASKS = 'tasks/get_tasks';
 const POST_TASKS = 'tasks/post_tasks';
 const PUT_TASKS = 'tasks/put_tasks'
 const DELETE_TASKS = 'tasks/delete_tasks';
+const COMPLETED_TASKS = 'tasks/completed_tasks';
 
 // ACTION CREATORS
 const getTasks = (tasks) => ({
@@ -24,6 +25,11 @@ const putTasks = (task) => ({
 
 const deleteTasks = (id) => ({
     type: DELETE_TASKS,
+    id
+});
+
+const completedTasks = (id) => ({
+    type: COMPLETED_TASKS,
     id
 });
 
@@ -82,6 +88,23 @@ export const thunkDeleteTasks = (id) => async (dispatch) => {
     }
 }
 
+export const thunkCompletedTasks = (id) => async (dispatch) => {
+    console.log('INSIDE THUNK COMPLETED TASKS')
+    const response = await csrfFetch(`/api/tasks/${id}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ completed: true })
+    });
+    console.log('THUNK COMPLETED TASKS', response, 'ID: ', id)
+    if (response.ok) {
+        const updatedTask = await response.json();
+        dispatch(completedTasks(updatedTask));
+        return updatedTask;
+    }
+}
+
 // REDUCER
 const tasksReducer = (state = {}, action) => {
     switch (action.type) {
@@ -106,6 +129,11 @@ const tasksReducer = (state = {}, action) => {
             const deleteState = { ...state };
             delete deleteState[action.id];
             return deleteState;
+        case COMPLETED_TASKS:
+            return {
+                ...state,
+                [action.id]: action.id
+            }
         default:
             return state;
     }

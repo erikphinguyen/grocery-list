@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory } from "react-router-dom";
 import './Tasks.css';
-import tasksReducer, { thunkGetTasks, thunkPostTasks, thunkPutTasks, thunkDeleteTasks } from '../../store/tasks';
+import tasksReducer, { thunkGetTasks, thunkPostTasks, thunkPutTasks, thunkDeleteTasks, thunkCompletedTasks } from '../../store/tasks';
 
 function Tasks({ user }) {
 
@@ -77,6 +77,17 @@ function Tasks({ user }) {
       .then(() => {
         let deleteTask = task.filter(task => task.id !== id)
         setTask(deleteTask)
+      })
+  }
+
+  // COMPLETED TASK
+  const handleCompletedTask = (id) => {
+    dispatch(thunkCompletedTasks(id))
+      .then(res => {
+        // let completedTask = task.filter(task => task.id !== id)
+        // console.log('WHAT IS COMPLETED TASK: ', completedTask)
+        console.log('WHAT IS RES', res)
+        setTask(res)
       })
   }
 
